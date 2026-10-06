@@ -1,0 +1,13 @@
+.venv
+.venv-app
+.git
+.env
+.env.*
+data
+tests
+tmp
+output
+hw1.pdf
+.DS_Store
+__pycache__
+*.pyc

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#216e59">
+  <title>Folio — AI Research Assistant</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M3 4h6a4 4 0 0 1 3 1.5A4 4 0 0 1 15 4h6v15h-6a4 4 0 0 0-3 1.5A4 4 0 0 0 9 19H3Z"/><path d="M12 6v14"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 4v16M9 4v16M14 4v16m3-15 4 14M2 20h20"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8ZM14 3v5h5M8 12h8M8 16h6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 5H3v16h16v-7"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 4H3v14h4v4l5-4h9ZM7 9h10M7 13h6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12-6 1 1-6ZM13 6l5 5"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Folio home"><span class="brand-icon"><svg class="icon"><use href="#i-book"/></svg></span><span>folio<span class="brand-dot">.</span></span></a>
+      <p class="brand-caption">A home for your research</p>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="navigation" aria-label="Main navigation">
+        <button class="nav-item active" id="nav-discover" data-view="discover"><svg class="icon"><use href="#i-search"/></svg>Discover<span class="nav-arrow">↗</span></button>
+        <button class="nav-item" id="nav-library" data-view="library"><svg class="icon"><use href="#i-library"/></svg>My library<span class="count" id="library-count">0</span></button>
+      </nav>
+      <div class="sidebar-upload" id="dropzone">
+        <span class="upload-icon"><svg class="icon"><use href="#i-upload"/></svg></span>
+        <strong>Bring your own paper</strong>
+        <p>Drop a PDF here, or choose<br>a file from your computer.</p>
+        <button class="button button-outline" id="sidebar-upload"><svg class="icon"><use href="#i-plus"/></svg>Upload a PDF</button>
+        <small>Text-based PDF · Up to 20 MB</small>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="connection" id="connection-button"><span class="status-dot" id="status-dot"></span><span><strong id="connection-label">Checking AI…</strong><small id="connection-model">Model connection</small></span><svg class="icon"><use href="#i-settings"/></svg></button>
+        <button class="help-button" id="help-button">How Folio works <span>↗</span></button>
+        <p class="local-note">Your library, saved locally.</p>
+      </div>
+    </aside>
+    <main class="main-workspace">
+      <header class="topbar"><div><span class="breadcrumb">Workspace</span><span class="breadcrumb-divider">/</span><span id="breadcrumb-current">Discover</span></div><span class="topbar-label">AI RESEARCH ASSISTANT</span></header>
+      <div class="workspace-content">
+        <section class="page-heading">
+          <span class="eyebrow" id="page-eyebrow">FOLLOW YOUR CURIOSITY</span>
+          <h1 id="page-title">Find your next idea.</h1>
+          <p id="page-description">Discover papers. Connect the dots. Understand more.</p>
+        </section>
+        <section class="search-section" id="search-section" aria-label="Search research papers">
+          <form id="search-form" class="search-box"><svg class="icon"><use href="#i-search"/></svg><label class="sr-only" for="search-input">Keywords, paper title, or arXiv ID</label><input id="search-input" placeholder="A topic, a paper title, a new direction…" maxlength="250" required minlength="2" autocomplete="off"><button class="button button-primary" id="search-submit" type="submit">Search <svg class="icon"><use href="#i-arrow"/></svg></button></form>
+          <div class="search-options"><div class="select-group"><label for="search-source">Search in</label><select id="search-source"><option value="auto">arXiv + fallback</option><option value="arxiv">arXiv</option><option value="crossref">Crossref</option></select></div><div class="select-group"><label for="search-sort">Sort by</label><select id="search-sort"><option value="relevance">Relevance</option><option value="newest">Newest first</option></select></div></div>
+        </section>
+        <form id="library-filter-form" class="library-filter hidden"><svg class="icon"><use href="#i-search"/></svg><label class="sr-only" for="library-filter">Filter saved papers</label><input id="library-filter" placeholder="Find a paper in your library…" autocomplete="off"></form>
+        <div id="search-warning" class="notice hidden" role="status"></div>
+        <div class="results-heading" id="results-heading"><h2 id="results-title">Start somewhere interesting</h2><span id="results-count">A few ideas to get you going</span></div>
+        <div id="paper-list" aria-live="polite"></div>
+        <div class="pagination hidden" id="pagination"><button class="button button-outline" id="previous-page">← Previous</button><span id="page-label"></span><button class="button button-outline" id="next-page">Next →</button></div>
+        <footer class="workspace-footer"><span>Built for the way you think.</span><span>Search → Save → Understand</span></footer>
+      </div>
+    </main>
+    <aside class="reader-panel" aria-label="Paper reader and AI assistant">
+      <div class="reader-header"><span class="reader-heading"><svg class="icon"><use href="#i-spark"/></svg>Research companion</span><span class="response-language" aria-label="AI response language: English">English</span></div>
+      <div id="reader-content"></div>
+    </aside>
+  </div>
+  <input type="file" id="upload-file" accept=".pdf,application/pdf" class="hidden">
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <dialog id="settings-dialog" class="dialog"><div class="dialog-header"><h2>Connect your AI</h2><button class="icon-button" data-close-dialog="settings-dialog" aria-label="Close model settings"><svg class="icon"><use href="#i-close"/></svg></button></div><p>Search, save, and upload work right away. To summarize papers and ask questions, connect a model on the server.</p><div id="model-details" class="model-details"></div><ol class="setup-steps"><li>Copy <code>.env.example</code> to <code>.env</code> in the project folder.</li><li>Set <code>LLM_API_STYLE</code>, <code>LLM_API_KEY</code>, <code>LLM_BASE_URL</code>, and <code>LLM_MODEL</code>. For Azure, use your deployment name.</li><li>Restart the server, then refresh the connection below.</li></ol><p class="muted">Your API key stays in the server configuration. The README includes examples for Azure Responses, OpenAI, DeepSeek, and Ollama.</p><button class="button button-primary" id="refresh-connection">Refresh connection <svg class="icon"><use href="#i-arrow"/></svg></button></dialog>
+  <dialog id="metadata-dialog" class="dialog"><div class="dialog-header"><h2>Paper details</h2><button class="icon-button" data-close-dialog="metadata-dialog" aria-label="Close paper details"><svg class="icon"><use href="#i-close"/></svg></button></div><p>PDF layouts vary. Review the detected details and fill in any missing information.</p><form id="metadata-form" class="metadata-form"><label for="edit-title">Title<input id="edit-title" required maxlength="400"></label><label for="edit-authors">Authors <span class="muted">(one per line)</span><textarea id="edit-authors" rows="3"></textarea></label><label for="edit-year">Publication year<input id="edit-year" type="number" min="1900" max="2100" placeholder="Unknown"></label><label for="edit-abstract">Abstract<textarea id="edit-abstract" rows="7" maxlength="20000"></textarea></label><button class="button button-primary" id="metadata-submit">Save details <svg class="icon"><use href="#i-check"/></svg></button></form></dialog>
+  <dialog id="source-dialog" class="dialog source-dialog"><div class="dialog-header"><h2 id="source-title">Paper text</h2><button class="icon-button" data-close-dialog="source-dialog" aria-label="Close source text"><svg class="icon"><use href="#i-close"/></svg></button></div><p class="muted">Extracted from the original PDF. Tables, equations, and column order may lose formatting.</p><div id="source-content"></div></dialog>
+  <dialog id="help-dialog" class="dialog"><div class="dialog-header"><h2>A small guide to Folio</h2><button class="icon-button" data-close-dialog="help-dialog" aria-label="Close guide"><svg class="icon"><use href="#i-close"/></svg></button></div><ol class="setup-steps"><li><strong>Discover.</strong> Search real papers from arXiv or Crossref by topic or title.</li><li><strong>Keep what matters.</strong> Save a result to your library, or upload your own PDF. Your papers and conversations survive restarts.</li><li><strong>Read with a companion.</strong> Select a saved paper, generate a summary, or ask a question. arXiv PDFs are fetched when needed; attach a PDF for other sources.</li><li><strong>Check the evidence.</strong> Click page citations to read the source. The AI uses extracted paper text; verify its answers against the original.</li></ol><p class="muted">The interface, summaries, and AI responses use English.</p></dialog>
+  <dialog id="delete-dialog" class="dialog small-dialog"><div class="dialog-header"><h2>Remove this paper?</h2><button class="icon-button" data-close-dialog="delete-dialog" aria-label="Cancel removal"><svg class="icon"><use href="#i-close"/></svg></button></div><p id="delete-description"></p><p class="muted">This also removes its local PDF, summary, and conversation.</p><div class="dialog-actions"><button class="button button-outline" data-close-dialog="delete-dialog">Keep paper</button><button class="button button-danger" id="confirm-delete">Remove paper</button></div></dialog>
+</body>
+</html>

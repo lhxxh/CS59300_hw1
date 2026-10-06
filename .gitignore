@@ -1,0 +1,13 @@
+.venv/
+.venv-app/
+.env
+.env.*
+!.env.example
+data/
+__pycache__/
+*.py[cod]
+.DS_Store
+.pytest_cache/
+tmp/
+output/
+hw1.pdf
