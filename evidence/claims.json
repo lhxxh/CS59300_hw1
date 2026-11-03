@@ -1,0 +1,8 @@
+[
+ {"value":"Ran 15 tests", "source":"evidence/initial-tests.txt"},
+ {"value":"73%", "source":"evidence/initial-coverage.txt"},
+ {"value":"Ran 18 tests", "source":"evidence/round1-tests.txt"},
+ {"value":"78%", "source":"evidence/round1-coverage.txt"},
+ {"value":"Ran 22 tests", "source":"evidence/final-tests.txt"},
+ {"value":"82%", "source":"evidence/final-coverage.txt"}
+]

@@ -1,0 +1,25 @@
+/Users/feiyunlu/.cache/uv/archive-v0/hxXss4JuhVA35sF9xtvr7/coverage/core.py:108: CoverageWarning: Couldn't import C tracer: No module named 'coverage.tracer' (no-ctracer); see https://coverage.readthedocs.io/en/7.13.1/messages.html#warning-no-ctracer
+  warn(f"Couldn't import C tracer: {IMPORT_ERROR}", slug="no-ctracer", once=True)
+test_health (test_hw2_api.ApiTests.test_health) ... ok
+test_metadata_validation_rejects_invalid_values_without_saving (test_hw2_api.ApiTests.test_metadata_validation_rejects_invalid_values_without_saving) ... ok
+test_save_and_find_paper (test_hw2_api.ApiTests.test_save_and_find_paper) ... ok
+test_search_cache_updates_saved_marker (test_hw2_api.ApiTests.test_search_cache_updates_saved_marker) ... ok
+test_search_invalid_query (test_hw2_api.ApiTests.test_search_invalid_query) ... ok
+test_search_rejects_bad_options (test_hw2_api.ApiTests.test_search_rejects_bad_options) ... ok
+test_unknown_paper (test_hw2_api.ApiTests.test_unknown_paper) ... ok
+test_arxiv_parsing_and_labelled_fallback (test_workflow.WorkflowTests.test_arxiv_parsing_and_labelled_fallback) ... ok
+test_author_markers_and_abstract_footnotes (test_workflow.WorkflowTests.test_author_markers_and_abstract_footnotes) ... ok
+test_azure_responses_endpoint_auth_and_output (test_workflow.WorkflowTests.test_azure_responses_endpoint_auth_and_output) ... ok
+test_bad_key_fails_job_without_fake_summary (test_workflow.WorkflowTests.test_bad_key_fails_job_without_fake_summary) ... ok
+test_invalid_pdf_and_missing_key_have_clear_errors (test_workflow.WorkflowTests.test_invalid_pdf_and_missing_key_have_clear_errors) ... ok
+test_legacy_conversation_language_migration_preserves_answers (test_workflow.WorkflowTests.test_legacy_conversation_language_migration_preserves_answers) ... ok
+test_long_summary_reads_every_page_and_retrieval_finds_evidence (test_workflow.WorkflowTests.test_long_summary_reads_every_page_and_retrieval_finds_evidence) ... ok
+test_origin_guard_and_deletion (test_workflow.WorkflowTests.test_origin_guard_and_deletion) ... ok
+test_pdf_upload_metadata_text_edit_and_attachment (test_workflow.WorkflowTests.test_pdf_upload_metadata_text_edit_and_attachment) ... ok
+test_real_llm_request_shape_full_text_sources_and_history (test_workflow.WorkflowTests.test_real_llm_request_shape_full_text_sources_and_history) ... ok
+test_save_deduplicates_and_survives_restart (test_workflow.WorkflowTests.test_save_deduplicates_and_survives_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.489s
+
+OK

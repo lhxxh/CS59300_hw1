@@ -66,3 +66,16 @@ In the website, search and save a paper or upload a PDF, then open **Summary** o
 | `requirements.txt`, `requirements.lock` | Dependencies and exact package versions |
 | `.env.example` | Configuration template without credentials |
 | `tests/` | Workflow tests |
+
+## Automated Tests and Coverage (HW2)
+
+Tests run offline using temporary SQLite databases; external HTTP and model responses are mocked. They do not require `.env` or API keys. With the application dependencies installed as above:
+
+```bash
+python -m pip install 'coverage>=7,<8'
+python -m unittest discover -s tests -v
+python -m coverage run --branch --source=research_assistant -m unittest discover -s tests -v
+python -m coverage report -m
+```
+
+The original HW1 checks are in `tests/test_workflow.py`; HW2 additions are in `tests/test_hw2_api.py`. Baseline, first-round, and final outputs are in `evidence/`. Coverage is the coverage.py combined statement-and-branch percentage for the Python backend only; it does not include browser JavaScript or prove correctness. HTTP/model mocking means the suite does not verify live providers or real model quality. The standalone PDF report documents the evaluation and iterations.

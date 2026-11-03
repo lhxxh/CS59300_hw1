@@ -1,0 +1,43 @@
+{
+  "results": [
+    {
+      "value": "Ran 15 tests",
+      "source": "evidence/initial-tests.txt",
+      "status": "verified",
+      "detail": "'Ran 15 tests' found in evidence/initial-tests.txt"
+    },
+    {
+      "value": "73%",
+      "source": "evidence/initial-coverage.txt",
+      "status": "verified",
+      "detail": "'73%' found in evidence/initial-coverage.txt"
+    },
+    {
+      "value": "Ran 18 tests",
+      "source": "evidence/round1-tests.txt",
+      "status": "verified",
+      "detail": "'Ran 18 tests' found in evidence/round1-tests.txt"
+    },
+    {
+      "value": "78%",
+      "source": "evidence/round1-coverage.txt",
+      "status": "verified",
+      "detail": "'78%' found in evidence/round1-coverage.txt"
+    },
+    {
+      "value": "Ran 22 tests",
+      "source": "evidence/final-tests.txt",
+      "status": "verified",
+      "detail": "'Ran 22 tests' found in evidence/final-tests.txt"
+    },
+    {
+      "value": "82%",
+      "source": "evidence/final-coverage.txt",
+      "status": "verified",
+      "detail": "'82%' found in evidence/final-coverage.txt"
+    }
+  ],
+  "summary": {
+    "verified": 6
+  }
+}
