@@ -1,39 +1,36 @@
-# CS59300_hw1 — Folio AI Research Assistant
+# CS 59300 — Folio AI Research Assistant
 
-A web application for finding, organizing, and understanding research papers.
+This repository contains my HW1 web application and the automated testing work for HW2. The application source remains the subject of the tests; the HW2 test suite and report are stored alongside it.
 
-[GitHub repository](https://github.com/lhxxh/CS59300_hw1)
+- [HW1: Application](#hw1-application)
+- [HW2: Test Generation and Evaluation](#hw2-test-generation-and-evaluation)
+- [Repository Layout](#repository-layout)
 
-## Features
+## HW1: Application
 
-- Search arXiv or Crossref for papers and view titles, authors, publication years, abstracts, and links.
-- Save papers to a local SQLite library that persists after refreshes and restarts.
-- Upload PDFs and extract their metadata and full text.
-- Generate LLM summaries based on the paper's full text.
-- Ask questions about a paper and inspect cited pages and source passages.
+Folio is a web application for finding, organizing, and understanding research papers. It can:
 
-The interface and AI responses use English. The backend uses Flask, SQLite, and pypdf; the frontend uses HTML, CSS, and JavaScript.
+- Search arXiv or Crossref and display titles, authors, publication years, abstracts, and links.
+- Save papers in a local SQLite library that persists across restarts.
+- Upload a PDF and extract its metadata and full text.
+- Generate a summary or answer questions using an LLM, with cited pages and passages.
 
-## Setup and Run
+The backend uses Flask, SQLite, and pypdf; the frontend uses HTML, CSS, and JavaScript.
 
-Use Python 3.12 or 3.13. The following commands are for macOS/Linux.
+### Install and run the application
 
-### 1. Install dependencies
+Use Python 3.12 or 3.13. The following commands are for macOS/Linux:
 
 ```bash
 git clone https://github.com/lhxxh/CS59300_hw1.git
 cd CS59300_hw1
 python3.13 -m venv .venv-app
 source .venv-app/bin/activate
-pip install -r requirements.lock
+python -m pip install -r requirements.lock
 cp .env.example .env
 ```
 
-If using Python 3.12, replace `python3.13` with `python3.12`.
-
-### 2. Configure an LLM
-
-Edit `.env` with your provider's credentials. For Azure Responses:
+If using Python 3.12, replace `python3.13` with `python3.12`. To use summaries and questions, configure an LLM in `.env`. For Azure Responses, for example:
 
 ```dotenv
 LLM_API_STYLE=azure_responses
@@ -42,34 +39,23 @@ LLM_BASE_URL=https://YOUR-RESOURCE.cognitiveservices.azure.com/openai/responses?
 LLM_MODEL=your-deployment-name
 ```
 
-Use your actual Azure deployment name. Other provider examples are included in `.env.example`. Search, saving, and PDF upload work without an LLM key; summaries and questions require a configured model. Keep `.env` local; it is excluded from Git.
+Use your actual deployment name; `.env.example` contains other provider examples. Search, saving, and PDF upload do not require an LLM key. Keep `.env` local; it is excluded from Git.
 
-### 3. Start the application
-
-With the virtual environment activated:
+With the virtual environment activated, start the application:
 
 ```bash
 python app.py
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Stop with `Ctrl+C`, and restart after changing `.env`.
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Stop with `Ctrl+C`, and restart after changing `.env`. The local library and uploaded files are stored under `data/`.
 
-In the website, search and save a paper or upload a PDF, then open **Summary** or **Ask AI**. Data is stored in `data/library.sqlite3` and `data/uploads/` and remains available when the application restarts.
+## HW2: Test Generation and Evaluation
 
-## Project Structure
+For HW2, Codex generated an initial test suite and improved it in two rounds. The evaluation retains the 11 HW1 workflow tests and adds 11 HW2 API test methods. On Python 3.13.12, the initial suite passed 15 tests with 73% combined backend statement-and-branch coverage; the final suite passed 22 with 82%. No application bugs were detected by these runs. See the [HW2 report](report/hw2-report.pdf) for the approach, results, limitations, and reflection.
 
-| Path | Purpose |
-| --- | --- |
-| `app.py` | Application entry point |
-| `research_assistant/` | Flask API, database, external paper search, PDF processing, and LLM integration |
-| `templates/`, `static/` | Web interface and browser interactions |
-| `requirements.txt`, `requirements.lock` | Dependencies and exact package versions |
-| `.env.example` | Configuration template without credentials |
-| `tests/` | Workflow tests |
+### Run tests and reproduce coverage
 
-## Automated Tests and Coverage (HW2)
-
-Tests run offline using temporary SQLite databases; external HTTP and model responses are mocked. They do not require `.env` or API keys. With the application dependencies installed as above:
+First install the application dependencies using the HW1 setup above and activate the environment. Then install coverage.py and run:
 
 ```bash
 python -m pip install 'coverage>=7,<8'
@@ -78,4 +64,18 @@ python -m coverage run --branch --source=research_assistant -m unittest discover
 python -m coverage report -m
 ```
 
-The original HW1 checks are in `tests/test_workflow.py`; HW2 additions are in `tests/test_hw2_api.py`. Baseline, first-round, and final outputs are in `evidence/`. Coverage is the coverage.py combined statement-and-branch percentage for the Python backend only; it does not include browser JavaScript or prove correctness. HTTP/model mocking means the suite does not verify live providers or real model quality. The standalone PDF report documents the evaluation and iterations.
+The tests use temporary SQLite databases and mock external HTTP/model responses. They do not require API keys or live services. Coverage measures the Python backend, not browser JavaScript; mocking also leaves real providers and model output quality unverified. Exact timing and coverage may vary by environment.
+
+The original workflow checks are in `tests/test_workflow.py`; the HW2 additions are in `tests/test_hw2_api.py`. The `evidence/` directory contains the recorded initial, first-round, and final test and coverage outputs, along with the ARIS evidence check. The report source is in `report/hw2-report.tex`.
+
+## Repository Layout
+
+| Path | Assignment | Purpose |
+| --- | --- | --- |
+| `app.py`, `research_assistant/` | HW1 | Flask application and backend modules |
+| `templates/`, `static/` | HW1 | Web interface and browser interactions |
+| `requirements.lock`, `.env.example` | HW1 | Application dependencies and configuration template |
+| `tests/test_workflow.py` | HW1 | Existing workflow checks, retained for HW2 evaluation |
+| `tests/test_hw2_api.py` | HW2 | Agent-generated and iteratively improved API tests |
+| `evidence/` | HW2 | Test runs, coverage reports, and evidence check |
+| `report/` | HW2 | Report PDF and editable LaTeX source |
